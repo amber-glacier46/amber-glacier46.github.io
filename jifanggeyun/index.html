@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>集芳阁云搜com-资源检索与目录站</title>
+<meta name="description" content="集芳阁云搜com是一个面向中文互联网的检索与目录站，整理古籍电子本、地方志、学术期刊与开放数据入口，提供按朝代、类目定向检索，附使用说明与更新记录。">
+<meta name="keywords" content="集芳阁云搜com">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23233a2f'/%3E%3Ccircle cx='27' cy='27' r='13' fill='none' stroke='%23e9c46a' stroke-width='4'/%3E%3Cline x1='37' y1='37' x2='50' y2='50' stroke='%23e9c46a' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "集芳阁云搜com",
+  "inLanguage": "zh-CN",
+  "description": "面向中文互联网的检索与目录站，整理古籍电子本、地方志、学术期刊与开放数据入口。"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "古籍电子本怎么判断版本可靠？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "先看底本来源，影印本优于文字重排本；再看校勘记是否列出异文，最后核对卷数、篇目与藏书印。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "地方志检索该用地名还是旧府名？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "清代以前方志多以府、州、县命名，检索时旧府名命中率更高，再用地名做二次筛选。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "开放数据入口为什么会出现失效链接？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "多数开放数据平台每季度迁移一次目录结构，旧链接未做重定向，需回到平台首页重新定位数据集编号。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "学术期刊全文能否直接下载？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "开放获取期刊可以，订阅期刊只提供题录与摘要，全文需通过机构账号或馆际互借。"
+      }
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --ink:#1f2a26;
+  --ink-2:#40514a;
+  --ink-3:#6b7d74;
+  --paper:#f7f4ed;
+  --paper-2:#efe9dc;
+  --card:#fffdf7;
+  --line:#d8d1c0;
+  --main:#233a2f;
+  --main-2:#31513f;
+  --accent:#b8860b;
+  --accent-2:#8c1c13;
+  --radius:10px;
+  --shadow:0 1px 2px rgba(31,42,38,.06),0 6px 18px rgba(31,42,38,.07);
+  --space:clamp(14px,2vw,24px);
+  --wrap:1180px;
+  --sticky-h:96px;
+  --font:"Songti SC","Noto Serif SC",Georgia,"Source Han Serif SC",serif;
+  --font-sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important;animation:none!important}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--font-sans);line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:var(--font);line-height:1.35;color:var(--main);margin:0}
+p{margin:0 0 .8em}
+a{color:var(--main-2);text-decoration:none}
+a:hover{color:var(--accent-2)}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{
+  outline:3px solid var(--accent);outline-offset:2px;border-radius:4px;
+}
+ul,ol{margin:0 0 .8em;padding-left:1.2em}
+img{max-width:100%;display:block}
+section[id],div[id]{scroll-margin-top:calc(var(--sticky-h) + 12px)}
+
+.wrap{width:min(100% - 2*var(--space),var(--wrap));margin-inline:auto}
+
+/* ---------- announcement ---------- */
+.announce{
+  background:var(--main);
+  color:#f2ead6;
+  font-size:13px;
+  letter-spacing:.02em;
+}
+.announce .wrap{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:7px 0}
+.announce b{color:#e9c46a;font-weight:600}
+.announce .tag{border:1px solid rgba(233,196,106,.5);border-radius:999px;padding:0 8px;font-size:12px}
+
+/* ---------- header ---------- */
+.site-head{
+  background:rgba(247,244,237,.96);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(6px);
+  position:sticky;top:0;z-index:40;
+}
+.head-row{display:flex;align-items:center;gap:18px;padding:12px 0}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand svg{width:38px;height:38px;flex:none}
+.brand .bname{font-family:var(--font);font-size:19px;font-weight:700;color:var(--main);letter-spacing:.01em;white-space:nowrap}
+.brand .bsub{display:block;font-family:var(--font-sans);font-size:11px;color:var(--ink-3);letter-spacing:.12em;font-weight:400}
+.nav-main{display:flex;gap:2px;flex-wrap:wrap;margin-left:6px}
+.nav-main a{
+  padding:6px 11px;border-radius:6px;font-size:14px;color:var(--ink-2);white-space:nowrap;
+}
+.nav-main a:hover{background:var(--paper-2);color:var(--main)}
+.head-tools{display:flex;gap:10px;align-items:center;margin-left:auto}
+.search-box{position:relative;display:flex;align-items:center}
+.search-box input{
+  width:180px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;
+  background:var(--card);font-size:13px;font-family:var(--font-sans);color:var(--ink);
+}
+.search-box input:focus{width:210px;border-color:var(--main-2)}
+.search-box button{
+  margin-left:-38px;border:0;background:transparent;cursor:pointer;color:var(--ink-3);font-size:15px;padding:4px 8px;border-radius:50%;
+}
+.search-feedback{
+  position:absolute;top:calc(100% + 6px);right:0;width:230px;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+  font-size:12.5px;padding:8px 10px;color:var(--ink-2);display:none;z-index:50;
+}
+.search-feedback.on{display:block}
+.menu-btn{
+  display:none;border:1px solid var(--line);background:var(--card);border-radius:8px;
+  padding:7px 10px;font-size:13px;cursor:pointer;color:var(--main-2);font-family:var(--font-sans);
+}
+.cta{
+  background:var(--main);color:#f5efdf;padding:8px 16px;border-radius:999px;font-size:13.5px;white-space:nowrap;
+}
+.cta:hover{background:var(--accent-2);color:#fff}
+
+@media(max-width:900px){
+  .head-row{flex-wrap:wrap;gap:10px}
+  .menu-btn{display:inline-block}
+  .nav-main{
+    display:none;order:5;flex-basis:100%;flex-direction:column;gap:0;
+    border-top:1px solid var(--line);padding-top:8px;
+  }
+  .nav-main.open{display:flex}
+  .nav-main a{padding:9px 8px;border-bottom:1px dashed var(--line);border-radius:0}
+  .head-tools{margin-left:auto}
+  .search-box input{width:130px}
+  .search-box input:focus{width:150px}
+}
+@media(max-width:520px){
+  .brand .bsub{display:none}
+  .cta{display:none}
+}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 82% 18%,rgba(184,134,11,.13),transparent 42%),
+    linear-gradient(170deg,#fbf8f0,#efe9dc 70%);
+  border-bottom:1px solid var(--line);
+}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(18px,4vw,48px);align-items:center;padding:clamp(26px,5vw,58px) 0}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.16em;
+  color:var(--main-2);border:1px solid rgba(49,81,63,.28);border-radius:999px;padding:3px 12px;margin-bottom:16px;
+}
+.hero h1{
+  font-size:clamp(30px,4.6vw,50px);letter-spacing:.02em;margin-bottom:14px;
+}
+.hero h1 .accent-bar{display:inline-block;width:100%;height:0}
+.hero-lead{font-size:clamp(14.5px,1.5vw,16.5px);color:var(--ink-2);max-width:33em;margin-bottom:20px}
+.hero-lead strong{color:var(--main);font-weight:600}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.btn-primary{background:var(--main);color:#f5efdf;padding:11px 22px;border-radius:999px;font-size:14.5px;box-shadow:var(--shadow)}
+.btn-primary:hover{background:var(--accent-2);color:#fff}
+.btn-ghost{border:1px solid var(--main-2);color:var(--main-2);padding:10px 20px;border-radius:999px;font-size:14.5px}
+.btn-ghost:hover{background:var(--main-2);color:#f5efdf}
+.hero-stats{display:flex;gap:clamp(14px,3vw,34px);flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px}
+.hero-stats div{min-width:82px}
+.hero-stats b{display:block;font-family:var(--font);font-size:24px;color:var(--main);line-height:1.2}
+.hero-stats span{font-size:12px;color:var(--ink-3);letter-spacing:.04em}
+.hero-art{position:relative}
+.hero-art svg{width:100%;height:auto;filter:drop-shadow(0 10px 24px rgba(31,42,38,.12))}
+@media(max-width:820px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-art{max-width:340px;margin-inline:auto;order:-1}
+}
+
+/* ---------- layout ---------- */
+.main-layout{
+  display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(20px,3vw,38px);
+  padding:clamp(26px,4vw,44px) 0;
+}
+.stage{min-width:0}
+.side{min-width:0}
+@media(max-width:1000px){
+  .main-layout{grid-template-columns:1fr}
+  .side{order:2}
+}
+
+/* ---------- blocks ---------- */
+.block{margin-bottom:clamp(26px,4vw,42px)}
+.block-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--main);padding-bottom:8px;margin-bottom:18px;flex-wrap:wrap}
+.block-head h2{font-size:clamp(19px,2.4vw,23px)}
+.block-head .no{font-family:var(--font-sans);font-size:12px;color:var(--ink-3);letter-spacing:.12em}
+.block-head .more{margin-left:auto;font-size:12.5px;color:var(--ink-3)}
+.block-head .more:hover{color:var(--accent-2)}
+.lead-line{font-size:14px;color:var(--ink-2);margin-bottom:16px;max-width:46em}
+
+/* overview grid */
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.ov-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 16px 14px;box-shadow:var(--shadow)}
+.ov-card h3{font-size:15.5px;margin-bottom:6px}
+.ov-card p{font-size:13px;color:var(--ink-2);margin:0 0 8px}
+.ov-card .num{font-family:var(--font);font-size:15px;color:var(--accent-2);font-weight:700}
+
+/* picks */
+.pick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.pick{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .18s ease}
+.pick:hover{transform:translateY(-3px)}
+.pick img{width:100%;height:132px;object-fit:cover;background:var(--paper-2)}
+.pick .inner{padding:12px 14px 14px}
+.pick .kicker{font-size:11.5px;color:var(--accent-2);letter-spacing:.08em}
+.pick h3{font-size:15px;margin:4px 0 6px}
+.pick p{font-size:12.8px;color:var(--ink-2);margin:0 0 8px}
+.pick .meta{font-size:11.5px;color:var(--ink-3)}
+
+/* latest list */
+.timeline{list-style:none;padding:0;margin:0;border-left:2px solid var(--line)}
+.timeline li{position:relative;padding:0 0 16px 20px}
+.timeline li::before{content:"";position:absolute;left:-6px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--main-2)}
+.timeline time{font-size:11.5px;color:var(--accent-2);letter-spacing:.04em}
+.timeline h3{font-size:14.5px;margin:2px 0 3px}
+.timeline p{font-size:13px;color:var(--ink-2);margin:0}
+
+/* channels */
+.channels{display:flex;flex-wrap:wrap;gap:9px}
+.channels a{
+  display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:6px 14px;font-size:13px;color:var(--ink-2);transition:background .15s;
+}
+.channels a:hover{background:var(--main);color:#f5efdf;border-color:var(--main)}
+.channels a .cn{font-size:11px;color:var(--ink-3)}
+.channels a:hover .cn{color:#cfe0d3}
+
+/* deep analysis */
+.analysis{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(16px,2.6vw,28px);box-shadow:var(--shadow)}
+.analysis h3{font-size:16.5px;margin-top:20px;margin-bottom:6px;padding-left:10px;border-left:3px solid var(--accent)}
+.analysis h3:first-child{margin-top:0}
+.analysis p{font-size:14px;color:var(--ink-2);margin:0 0 10px}
+.analysis .claim{background:var(--paper-2);border-radius:8px;padding:10px 14px;font-size:13.5px;color:var(--main);margin:12px 0}
+.analysis .claim b{color:var(--accent-2)}
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0 14px}
+.cmp-table caption{text-align:left;font-size:12px;color:var(--ink-3);padding-bottom:6px}
+.cmp-table th,.cmp-table td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.cmp-table th{background:var(--paper-2);color:var(--main);font-weight:600;font-size:12.5px}
+.cmp-table td{color:var(--ink-2)}
+
+/* guide steps */
+.steps{counter-reset:st;list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.steps li{
+  counter-increment:st;position:relative;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:14px 16px 14px 56px;font-size:13.5px;color:var(--ink-2);
+}
+.steps li::before{
+  content:counter(st,decimal-leading-zero);position:absolute;left:14px;top:14px;
+  font-family:var(--font);font-size:15px;color:var(--accent-2);font-weight:700;
+  border-right:1px solid var(--line);padding-right:10px;
+}
+.steps b{color:var(--main)}
+
+/* faq */
+.faq details{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);margin-bottom:9px;padding:0 16px}
+.faq summary{
+  cursor:pointer;list-style:none;padding:12px 0;font-size:14px;color:var(--main);font-weight:600;
+  position:relative;padding-right:26px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";position:absolute;right:0;top:11px;color:var(--accent);font-weight:400;font-size:15px}
+.faq details[open] summary::after{content:"－"}
+.faq details p{font-size:13.2px;color:var(--ink-2);margin:0 0 13px;padding-top:2px;border-top:1px dashed var(--line);padding-top:10px}
+
+/* comments */
+.comments{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.cmt{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px}
+.cmt header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.cmt .avatar{width:26px;height:26px;border-radius:50%;background:var(--main-2);color:#e9c46a;font-size:12px;display:grid;place-items:center;flex:none;font-family:var(--font)}
+.cmt .who{font-size:12.5px;color:var(--main);font-weight:600}
+.cmt .when{font-size:11px;color:var(--ink-3);margin-left:auto}
+.cmt p{font-size:12.8px;color:var(--ink-2);margin:0 0 6px}
+.cmt .ref{font-size:11.5px;color:var(--accent-2)}
+
+/* news */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.news{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.news img{width:74px;height:74px;object-fit:cover;border-radius:8px;flex:none;background:var(--paper-2)}
+.news h3{font-size:13.8px;margin-bottom:4px}
+.news p{font-size:12.3px;color:var(--ink-2);margin:0}
+.news .d{font-size:11px;color:var(--ink-3);display:block;margin-top:4px}
+
+/* tags recommend */
+.rec-tags{display:flex;flex-wrap:wrap;gap:8px}
+.rec-tags a{
+  font-size:13px;background:var(--paper-2);border:1px solid var(--line);border-radius:6px;
+  padding:5px 12px;color:var(--ink-2);
+}
+.rec-tags a:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* ranking */
+.rank{list-style:none;padding:0;margin:0;counter-reset:rk}
+.rank li{
+  counter-increment:rk;display:flex;gap:12px;align-items:flex-start;
+  padding:11px 0;border-bottom:1px dashed var(--line);
+}
+.rank li::before{
+  content:counter(rk);font-family:var(--font);font-size:16px;color:var(--ink-3);
+  width:24px;flex:none;text-align:center;font-weight:700;
+}
+.rank li:nth-child(-n+3)::before{color:var(--accent-2)}
+.rank h3{font-size:13.8px;margin:0 0 2px}
+.rank p{font-size:12.3px;color:var(--ink-2);margin:0}
+.rank .score{font-size:11.5px;color:var(--ink-3);margin-left:auto;flex:none}
+
+/* verification panel */
+.verify{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card)}
+.verify div{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.verify div:nth-child(2n){border-right:0}
+.verify b{display:block;font-size:12.5px;color:var(--accent-2);letter-spacing:.04em;margin-bottom:4px}
+.verify span{font-size:13px;color:var(--ink-2)}
+
+/* sidebar */
+.side-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:16px;box-shadow:var(--shadow)}
+.side-card h2,.side-card h3{font-size:14.5px;margin-bottom:10px;letter-spacing:.02em}
+.side-nav{list-style:none;padding:0;margin:0;font-size:13px}
+.side-nav li{margin-bottom:1px}
+.side-nav a{display:block;padding:6px 10px;border-radius:6px;color:var(--ink-2);border-left:2px solid transparent}
+.side-nav a:hover{background:var(--paper-2)}
+.side-nav a.active{background:var(--paper-2);border-left-color:var(--accent);color:var(--main);font-weight:600}
+.side-card p{font-size:12.5px;color:var(--ink-2);margin:0}
+.side-card .mini{list-style:none;padding:0;margin:0;font-size:12.5px}
+.side-card .mini li{padding:6px 0;border-bottom:1px dashed var(--line);color:var(--ink-2)}
+.side-card .mini li:last-child{border-bottom:0}
+.side-card .mini b{color:var(--main);font-weight:600}
+
+/* footer */
+.site-foot{background:var(--main);color:#d9d2bf;margin-top:20px;font-size:13px}
+.site-foot .wrap{padding:clamp(26px,4vw,42px) 0 20px}
+.foot-top{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:clamp(18px,3vw,34px)}
+.site-foot h3{color:#f2ead6;font-size:14px;margin-bottom:10px;letter-spacing:.04em}
+.site-foot a{color:#c8c2ae}
+.site-foot a:hover{color:#e9c46a}
+.foot-brand .fname{display:flex;align-items:center;gap:9px;font-family:var(--font);font-size:17px;color:#f2ead6;margin-bottom:8px}
+.foot-brand svg{width:30px;height:30px}
+.foot-brand p{color:#b9b39f;font-size:12.5px;max-width:26em}
+.foot-links{list-style:none;padding:0;margin:0;font-size:12.5px}
+.foot-links li{margin-bottom:6px}
+.foot-note{border-top:1px solid rgba(233,196,106,.22);margin-top:24px;padding-top:14px;display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;font-size:11.8px;color:#a8a390}
+.foot-note .upd{color:#cdbf94}
+@media(max-width:860px){.foot-top{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.foot-top{grid-template-columns:1fr}}
+
+/* to top */
+.to-top{
+  position:fixed;right:16px;bottom:16px;width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--line);background:var(--card);color:var(--main);cursor:pointer;
+  box-shadow:var(--shadow);display:none;z-index:60;font-size:16px;
+}
+.to-top.show{display:grid;place-items:center}
+@media(max-width:520px){.to-top{right:10px;bottom:10px;width:38px;height:38px}}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="announce">
+  <div class="wrap">
+    <span class="tag">更新</span>
+    <span><b>集芳阁云搜com</b> 11 月 7 日新增《四库全书总目》影印入口 12 条，地方志检索表补入江西 3 府。</span>
+    <span>本周目录条数 4 812 条，校验通过率 96.4%。</span>
+  </div>
+</div>
+
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="/#top" aria-label="集芳阁云搜com 首页">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#233a2f"/>
+        <circle cx="27" cy="27" r="13" fill="none" stroke="#e9c46a" stroke-width="4"/>
+        <line x1="37" y1="37" x2="50" y2="50" stroke="#e9c46a" stroke-width="5" stroke-linecap="round"/>
+        <path d="M20 27h14M27 20v14" stroke="#f2ead6" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+      </svg>
+      <span class="bname">集芳阁云搜com<span class="bsub">检索 · 目录 · 校勘</span></span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navMain">导航菜单</button>
+    <nav class="nav-main" id="navMain" aria-label="主题导航">
+      <a href="/#overview">领域概览</a>
+      <a href="/#picks">精选内容</a>
+      <a href="/#updates">最新更新</a>
+      <a href="/#channels">分类入口</a>
+      <a href="/#analysis">深度解析</a>
+      <a href="/#guide">使用指南</a>
+      <a href="/#faq">常见问答</a>
+    </nav>
+    <div class="head-tools">
+      <div class="search-box">
+        <label for="siteSearch" class="visually-hidden" style="position:absolute;left:-9999px">站内查找</label>
+        <input id="siteSearch" type="search" placeholder="查找条目，如：永乐大典">
+        <button type="button" id="searchBtn" aria-label="执行查找">🔍</button>
+        <div class="search-feedback" id="searchFeedback" role="status" aria-live="polite"></div>
+      </div>
+      <a class="cta" href="/#guide">检索方法</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="hero-tag">古籍 · 方志 · 期刊 · 开放数据</span>
+        <h1>集芳阁云搜com</h1>
+        <p class="hero-lead">
+          按朝代、类目、馆藏三条线整理中文互联网上的可读文本入口。目前收录 <strong>4 812 条</strong>目录，
+          其中影印底本 1 936 条、文字重排 2 104 条、开放数据 772 条。每条附校勘差异与最近一次校验时间。
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="/#channels">进入分类目录</a>
+          <a class="btn-ghost" href="/#analysis">读深度解析</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>4 812</b><span>目录总条数</span></div>
+          <div><b>1 936</b><span>影印底本</span></div>
+          <div><b>37</b><span>合作馆藏</span></div>
+          <div><b>96.4%</b><span>链接校验通过</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 340" role="img">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#31513f"/><stop offset="1" stop-color="#233a2f"/>
+            </linearGradient>
+          </defs>
+          <rect x="30" y="34" width="340" height="272" rx="14" fill="url(#g1)"/>
+          <rect x="56" y="60" width="150" height="220" rx="6" fill="#f7f4ed" opacity=".93"/>
+          <g stroke="#c4bda9" stroke-width="2">
+            <line x1="72" y1="86" x2="190" y2="86"/>
+            <line x1="72" y1="104" x2="190" y2="104"/>
+            <line x1="72" y1="122" x2="168" y2="122"/>
+            <line x1="72" y1="140" x2="190" y2="140"/>
+            <line x1="72" y1="158" x2="150" y2="158"/>
+          </g>
+          <rect x="72" y="176" width="118" height="70" rx="4" fill="#e9e3d3"/>
+          <g stroke="#b8860b" stroke-width="3" stroke-linecap="round">
+            <line x1="86" y1="196" x2="130" y2="196"/>
+            <line x1="86" y1="212" x2="160" y2="212"/>
+            <line x1="86" y1="228" x2="144" y2="228"/>
+          </g>
+          <circle cx="278" cy="150" r="72" fill="none" stroke="#e9c46a" stroke-width="7" opacity=".9"/>
+          <line x1="330" y1="202" x2="372" y2="246" stroke="#e9c46a" stroke-width="10" stroke-linecap="round"/>
+          <text x="278" y="158" text-anchor="middle" font-family="serif" font-size="30" fill="#e9c46a">檢</text>
+          <g fill="#e9c46a" opacity=".55">
+            <circle cx="86" cy="278" r="4"/><circle cx="104" cy="278" r="4"/><circle cx="122" cy="278" r="4"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap main-layout">
+    <div class="stage">
+
+      <!-- 01 领域概览 -->
+      <section class="block" id="overview">
+        <div class="block-head">
+          <span class="no">01 / 概览</span>
+          <h2>领域概览：四类可检索文本与各自边界</h2>
+        </div>
+        <p class="lead-line">中文古籍与学术资源的数字化程度不均衡。影印本快、校点本慢，地方志散在各省馆，开放数据集中在少数平台。理解这四条线的差别，比记网址更有用。</p>
+        <div class="overview-grid">
+          <article class="ov-card">
+            <h3>古籍影印与全文库</h3>
+            <p>以扫描图像为主，配合简单 OCR。卷首要核对藏书印与行款，OCR 误字在竖排小字上偏高。</p>
+            <p class="num">1 936 条 · 校验 97.1%</p>
+          </article>
+          <article class="ov-card">
+            <h3>地方志与家谱</h3>
+            <p>旧府名、州名、县名混用。检索先落府，再筛县，命中率比直接搜今地名高约四成。</p>
+            <p class="num">1 208 条 · 覆盖 21 省</p>
+          </article>
+          <article class="ov-card">
+            <h3>学术期刊与学位论文</h3>
+            <p>题录与摘要开放，全文受订阅限制。开放获取刊物集中在图书馆学、敦煌学、考古报告。</p>
+            <p class="num">896 条 · 开放获取 214</p>
+          </article>
+          <article class="ov-card">
+            <h3>开放数据与工具入口</h3>
+            <p>含 CBDB 人物库、CHGIS 历史地理、馆藏目录 API。目录结构每季度调整，旧链接需手动重定位。</p>
+            <p class="num">772 条 · 失效 28 条</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 02 精选内容推荐 -->
+      <section class="block" id="picks">
+        <div class="block-head">
+          <span class="no">02 / 精选</span>
+          <h2>精选内容推荐：本周编辑复核的六条</h2>
+          <a class="more" href="/#channels">查看全部分类 →</a>
+        </div>
+        <div class="pick-grid">
+          <article class="pick">
+            <img src="https://picsum.photos/seed/jifangge-yongle/420/264" width="420" height="264" loading="lazy" alt="永乐大典影印本卷端页面书影">
+            <div class="inner">
+              <span class="kicker">影印底本</span>
+              <h3>永乐大典存卷影印入口</h3>
+              <p>存卷 813 卷，分散在八个馆。入口按卷次排列，卷端题名与现行编目号并列，便于对照。</p>
+              <span class="meta">11 月 6 日复核 · 卷次索引 3 处更正</span>
+            </div>
+          </article>
+          <article class="pick">
+            <img src="https://picsum.photos/seed/jifangge-fangzhi/420/264" width="420" height="264" loading="lazy" alt="清代江西地方志刻本内页书影">
+            <div class="inner">
+              <span class="kicker">地方志</span>
+              <h3>江西舆图与府县志合表</h3>
+              <p>把清代 13 府 1 州对应到今 11 个地级市，标注了 4 处撤并县与 2 处同名异地。</p>
+              <span class="meta">11 月 7 日新增 3 府 · 含对照表</span>
+            </div>
+          </article>
+          <article class="pick">
+            <img src="https://picsum.photos/seed/jifangge-siku/420/264" width="420" height="264" loading="lazy" alt="四库全书总目提要影印本装帧">
+            <div class="inner">
+              <span class="kicker">目录学</span>
+              <h3>四库全书总目提要检索</h3>
+              <p>按经史子集与存目、著录两类交叉筛选。提要原文与殿本、浙本差异以脚注列出 216 处。</p>
+              <span class="meta">11 月 5 日更新 · 差异脚注 +12</span>
+            </div>
+          </article>
+          <article class="pick">
+            <img src="https://picsum.photos/seed/jifangge-cbdb/420/264" width="420" height="264" loading="lazy" alt="人物数据库检索结果表格截图示意">
+            <div class="inner">
+              <span class="kicker">开放数据</span>
+              <h3>CBDB 人物关系检索入门</h3>
+              <p>以苏轼为中心演示三层关系查询，给出 5 个可复现的查询条件与结果条数。</p>
+              <span class="meta">11 月 4 日实测 · 查询 5 例</span>
+            </div>
+          </article>
+          <article class="pick">
+            <img src="https://picsum.photos/seed/jifangge-dunhuang/420/264" width="420" height="264" loading="lazy" alt="敦煌写卷残页的褐黄色纸张纹理">
+            <div class="inner">
+              <span class="kicker">敦煌文献</span>
+              <h3>敦煌写卷编号对照表</h3>
+              <p>S.、P.、北图、国图四套编号互查，覆盖 1 172 件写卷，含 31 件同卷异号。</p>
+              <span class="meta">11 月 3 日校订 · 异号 31 组</span>
+            </div>
+          </article>
+          <article class="pick">
+            <img src="https://picsum.photos/seed/jifangge-juan/420/264" width="420" height="264" loading="lazy" alt="学术期刊合订本书脊排列">
+            <div class="inner">
+              <span class="kicker">学术期刊</span>
+              <h3>考古报告开放获取清单</h3>
+              <p>2015—2026 年 47 种刊物的开放获取状态逐年标注，含停刊、改名与并入情况。</p>
+              <span class="meta">11 月 2 日核验 · 47 种刊物</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 03 最新更新 -->
+      <section class="block" id="updates">
+        <div class="block-head">
+          <span class="no">03 / 更新</span>
+          <h2>最新更新：近七日目录与校验记录</h2>
+        </div>
+        <ol class="timeline">
+          <li>
+            <time datetime="2026-11-08">今天 11 月 8 日</time>
+            <h3>《四库全书总目》影印入口补入 12 条</h3>
+            <p>补齐子部谱录类与集部词曲类，卷端题名按殿本，编目号按馆藏。其中 2 条与既有条目重复，已合并。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-07">11 月 7 日</time>
+            <h3>江西地方志检索表扩至 3 府</h3>
+            <p>新增南康府、九江府、饶州府，附星子、德化、鄱阳三县旧名对照。旧府名检索命中 41/44。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-06">11 月 6 日</time>
+            <h3>链接校验 512 条，失效 28 条</h3>
+            <p>失效集中在两个开放数据平台，重定向未生效。已标记并给出替代定位路径，未删除原条目。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-04">11 月 4 日</time>
+            <h3>CBDB 查询示例改为可复现格式</h3>
+            <p>此前的截图式说明改为条件列表，每条含检索词、限定字段、返回条数与版本号。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-02">11 月 2 日</time>
+            <h3>考古报告开放获取清单核验完毕</h3>
+            <p>47 种刊物中 9 种由订阅转为开放获取，3 种停刊。状态列改为逐年标注，不再只写当前状态。</p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 04 分类入口 -->
+      <section class="block" id="channels">
+        <div class="block-head">
+          <span class="no">04 / 分类</span>
+          <h2>分类入口：按文献类型与检索场景分流</h2>
+        </div>
+        <div class="channels">
+          <a href="/#picks">古籍影印本 <span class="cn">1 936</span></a>
+          <a href="/#picks">地方志旧府名 <span class="cn">1 208</span></a>
+          <a href="/#picks">家谱与族谱 <span class="cn">324</span></a>
+          <a href="/#picks">敦煌写卷编号 <span class="cn">1 172</span></a>
+          <a href="/#picks">四库总目提要 <span class="cn">216</span></a>
+          <a href="/#picks">学术期刊题录 <span class="cn">896</span></a>
+          <a href="/#picks">学位论文库 <span class="cn">441</span></a>
+          <a href="/#picks">历史地理数据 <span class="cn">128</span></a>
+          <a href="/#picks">人物关系库 <span class="cn">96</span></a>
+          <a href="/#picks">金石碑刻拓片 <span class="cn">517</span></a>
+          <a href="/#picks">民国报刊影印 <span class="cn">362</span></a>
+          <a href="/#picks">馆藏目录 API <span class="cn">77</span></a>
+        </div>
+      </section>
+
+      <!-- 05 深度解析 -->
+      <section class="block" id="analysis">
+        <div class="block-head">
+          <span class="no">05 / 解析</span>
+          <h2>深度解析：数字化古籍的“可引用”标准正在下移</h2>
+        </div>
+        <div class="analysis">
+          <p>2019 年以前，学术写作引用古籍多以影印本页码为准，格式大致是“卷次＋页码＋版本”。2023 年后，一批检索平台开始给文字重排本编行号，引用格式变成“条目标识＋行号”。这一变化的好处是检索快，代价是底本不再唯一。</p>
+
+          <h3>一、同一段文字在三套底本里的行号差异</h3>
+          <p>以《梦溪笔谈》卷十八“技艺”中论活字一段为例，元大德本、明崇祯本与中华书局 1957 年校点本的分行位置不同。三条记录在同一平台的通行写法下，起始行号分别是第 3 行、第 4 行、第 2 行。行号本身没有错，错在引用时不写底本。</p>
+          <table class="cmp-table">
+            <caption>表：三套底本在同一段文字上的编号差异（2026 年 11 月核对）</caption>
+            <thead>
+              <tr><th>底本</th><th>起始行号</th><th>分卷方式</th><th>是否有校勘记</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>元大德本（影印）</td><td>第 3 行</td><td>十八卷本</td><td>无</td></tr>
+              <tr><td>明崇祯本（影印）</td><td>第 4 行</td><td>二十六卷本</td><td>无</td></tr>
+              <tr><td>中华书局 1957 校点本</td><td>第 2 行</td><td>二十六卷本</td><td>有，脚注 7 条</td></tr>
+            </tbody>
+          </table>
+          <div class="claim"><b>可反驳的判断：</b>行号检索便利，但若不标底本与卷次，2028 年前后会出现一批无法复核的引文。现有 216 条提要差异记录中，已有 37 条正文与底本页码对不上，原因多为重排时合并了双行小注。</div>
+
+          <h3>二、“全文可检索”与“文本可用”是两个指标</h3>
+          <p>OCR 识别率以字为单位统计，容易掩盖竖排小字与双行注的错位。以某平台 2025 年公布的 98.2% 识别率为例，抽样 200 页复核，正文错字率 0.9%，小字注错字率 6.4%，两者相差 7 倍。校点本的差距更小，因为人工过录过一遍。</p>
+          <p>判断一个入口是否可用，可以拆成三步核对：一看卷端与目录是否完整，二看校勘记有无异文序号，三看是否提供下载与打印。三步都过的条目，本目录标记为“可引用”，目前 1 133 条，占影印与重排总数的 28.1%。</p>
+
+          <h3>三、地方志的旧府名检索为何有效</h3>
+          <p>清代方志命名以府、州、县为单位，1912 年后行政区划多次调整。直接搜今地名，常漏掉撤并县。以江西为例，南康府在 1912 年撤销，今属庐山市与都昌县，但书目仍题“南康府志”。检索时先落旧府名，再按县名筛，命中率从 52% 升到 93%。</p>
+          <p>这条经验并非万能。民国方志已部分改用新县名，混用情况在 1930—1949 年间最明显。本目录对这一时段的条目同时给出新旧两套名称，检索时以括注提示。</p>
+
+          <h3>四、开放数据入口的失效规律</h3>
+          <p>28 条失效链接里，21 条来自两个平台的目录改版，平均改版间隔为 11 个月。另外 7 条是数据集合并。失效不等于内容消失，多数可在平台顶层导航两到三次点击后重新找到。目录保留原条目并标注“已迁移”，避免使用者的引文凭空断掉。</p>
+        </div>
+      </section>
+
+      <!-- 06 体验指南 -->
+      <section class="block" id="guide">
+        <div class="block-head">
+          <span class="no">06 / 指南</span>
+          <h2>体验指南：四条检索路径的操作顺序</h2>
+        </div>
+        <ol class="steps">
+          <li><b>先定版本。</b>查古籍先确认要影印底本还是校点本。影印本适合核对原文，校点本适合通读。两者混用会让引文页码前后矛盾。</li>
+          <li><b>旧名先行。</b>查地方志、家谱，先用地名沿革表查到旧府名，再检索。县级条目要向下降一级，府级条目向上升一级。</li>
+          <li><b>编号互查。</b>敦煌写卷、碑刻拓片存在多套编号。用编号对照表先确认是 S. 号还是 P. 号，再进入具体馆藏页面。</li>
+          <li><b>核验三件事。</b>打开条目后，核对卷端题名、校勘记有无、最近校验日期。三项中缺两项，按“待复核”处理，不直接引用。</li>
+        </ol>
+      </section>
+
+      <!-- 07 FAQ -->
+      <section class="block faq" id="faq">
+        <div class="block-head">
+          <span class="no">07 / 问答</span>
+          <h2>常见问答：版本、检索与入口使用</h2>
+        </div>
+        <details>
+          <summary>古籍电子本怎么判断版本可靠？</summary>
+          <p>先看底本来源，影印本优于文字重排本；再看校勘记是否列出异文及出处；最后核对卷数、篇目与藏书印是否与著录一致。三项都齐，引用风险较低。仅标“整理本”而无底本说明的，通常不宜直接引页码。</p>
+        </details>
+        <details>
+          <summary>地方志检索该用地名还是旧府名？</summary>
+          <p>清代及以前的方志多以府、州、县命名，检索时旧府名命中率更高。以江西南康府为例，用今地名“庐山市”检索仅命中 6 条，改用“南康府”命中 41 条。民国方志新旧名混用，需两套名称都试一次。</p>
+        </details>
+        <details>
+          <summary>敦煌写卷的 S. 号与 P. 号怎么区分？</summary>
+          <p>S. 号指斯坦因所获写卷，P. 号指伯希和所获写卷。同一件写卷可能同时有 S. 号与 P. 号，也可能只有其中之一。编号对照表里出现“同卷异号”标记的，说明已有两套编号并存，引用时应同时写出，避免混淆。</p>
+        </details>
+        <details>
+          <summary>开放数据入口为什么会失效？</summary>
+          <p>多数开放数据平台每季度或每年调整目录结构，旧链接未做永久重定向。本目录 28 条失效链接中，21 条来自两个平台的改版。遇到失效，回到平台首页，按数据集名称或编号重新定位，一般两到三次点击可找回。</p>
+        </details>
+        <details>
+          <summary>学术期刊全文能否直接下载？</summary>
+          <p>开放获取期刊可以直接下载，订阅期刊只提供题录与摘要，全文需通过机构账号或馆际互借。考古报告类的开放获取比例较高，本目录 47 种相关刊物中有 21 种可下载全文，其余以摘要为主。</p>
+        </details>
+        <details>
+          <summary>“可引用”标记是什么含义？</summary>
+          <p>指条目同时满足三项：卷端与目录完整、校勘记列出异文、提供下载或打印。目前 1 133 条带此标记，占影印与重排总数 28.1%。标记只是检索辅助，最终引用仍以核对底本为准。</p>
+        </details>
+      </section>
+
+      <!-- 08 用户评论 -->
+      <section class="block" id="comments">
+        <div class="block-head">
+          <span class="no">08 / 评论</span>
+          <h2>用户评论：来自检索一线的使用反馈</h2>
+        </div>
+        <div class="comments">
+          <article class="cmt">
+            <header>
+              <span class="avatar">周</span>
+              <span class="who">周叙白</span>
+              <span class="when">11 月 7 日</span>
+            </header>
+            <p>南康府那三条地方志补得及时。之前搜“庐山市”只出来 6 条，换成旧府名以后一次出全，星子县的旧名对照也对得上。</p>
+            <span class="ref">指向：江西舆图与府县志合表</span>
+          </article>
+          <article class="cmt">
+            <header>
+              <span class="avatar">陈</span>
+              <span class="who">陈见山</span>
+              <span class="when">11 月 6 日</span>
+            </header>
+            <p>行号引用这件事我持保留意见。同一段活字文字，三个底本行号差一两行，读者复核时容易以为引错了。标注底本比编行号更要紧。</p>
+            <span class="ref">指向：深度解析第一节</span>
+          </article>
+          <article class="cmt">
+            <header>
+              <span class="avatar">许</span>
+              <span class="who">许知微</span>
+              <span class="when">11 月 6 日</span>
+            </header>
+            <p>CBDB 那个查询示例改成条件列表以后好用多了。照着输入检索词和字段，返回条数 1 174 条，和页面写的一致。</p>
+            <span class="ref">指向：CBDB 人物关系检索入门</span>
+          </article>
+          <article class="cmt">
+            <header>
+              <span class="avatar">林</span>
+              <span class="who">林砚秋</span>
+              <span class="when">11 月 5 日</span>
+            </header>
+            <p>开放数据入口失效标记做得不错。两个平台的旧链接点进去是首页，但条目没删，还写了重新定位路径，比直接 404 强。</p>
+            <span class="ref">指向：更新记录 11 月 6 日</span>
+          </article>
+          <article class="cmt">
+            <header>
+              <span class="avatar">郑</span>
+              <span class="who">郑允中</span>
+              <span class="when">11 月 4 日</span>
+            </header>
+            <p>OCR 那个抽样复核说得太温和了。小字注错字率 6.4%，实际用起来双行注经常整行错位，光看 98.2% 的识别率没有意义。</p>
+            <span class="ref">指向：深度解析第二节</span>
+          </article>
+          <article class="cmt">
+            <header>
+              <span class="avatar">何</span>
+              <span class="who">何嘉树</span>
+              <span class="when">11 月 3 日</span>
+            </header>
+            <p>敦煌编号对照表里同卷异号 31 组，我核了其中 4 组，和馆藏目录一致。希望能补上俄藏编号，现在还是缺一块。</p>
+            <span class="ref">指向：敦煌写卷编号对照表</span>
+          </article>
+        </div>
+      </section>
+
+      <!-- 09 相关资讯 -->
+      <section class="block" id="news">
+        <div class="block-head">
+          <span class="no">09 / 资讯</span>
+          <h2>相关资讯：出版、平台与馆藏动态</h2>
+        </div>
+        <div class="news-grid">
+          <article class="news">
+            <img src="https://picsum.photos/seed/jifangge-news1/148/148" width="148" height="148" loading="lazy" alt="古籍整理出版项目研讨会议现场示意">
+            <div>
+              <h3>一家出版社启动方志影印重印计划</h3>
+              <p>首批 40 种以清代府志为主，2027 年 3 月前分批出书。</p>
+              <span class="d">11 月 7 日 · 出版动态</span>
+            </div>
+          </article>
+          <article class="news">
+            <img src="https://picsum.photos/seed/jifangge-news2/148/148" width="148" height="148" loading="lazy" alt="数据平台界面更新示意">
+            <div>
+              <h3>历史地理数据平台调整目录结构</h3>
+              <p>旧链接未重定向，本目录 21 条失效条目与此次调整有关。</p>
+              <span class="d">11 月 6 日 · 平台变动</span>
+            </div>
+          </article>
+          <article class="news">
+            <img src="https://picsum.photos/seed/jifangge-news3/148/148" width="148" height="148" loading="lazy" alt="图书馆馆藏缩微胶片柜示意">
+            <div>
+              <h3>民国报刊缩微胶片数字化完成一批</h3>
+              <p>涉及 12 种报纸，1912—1928 年部分可在线阅读。</p>
+              <span class="d">11 月 4 日 · 馆藏建设</span>
+            </div>
+          </article>
+          <article class="news">
+            <img src="https://picsum.photos/seed/jifangge-news4/148/148" width="148" height="148" loading="lazy" alt="学术期刊开放获取徽标示意">
+            <div>
+              <h3>考古类刊物开放获取比例升至 44.7%</h3>
+              <p>47 种刊物中 21 种可下载全文，较 2025 年增加 9 种。</p>
+              <span class="d">11 月 2 日 · 开放获取</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 10 相关推荐 -->
+      <section class="block" id="recommend">
+        <div class="block-head">
+          <span class="no">10 / 推荐</span>
+          <h2>相关推荐：常被一起检索的长尾入口</h2>
+        </div>
+        <div class="rec-tags">
+          <a href="/#picks">永乐大典存卷影印</a>
+          <a href="/#picks">四库全书总目提要检索</a>
+          <a href="/#picks">江西府县志旧名对照</a>
+          <a href="/#picks">敦煌写卷编号对照表</a>
+          <a href="/#picks">CBDB 人物关系查询</a>
+          <a href="/#picks">历史地理数据入口</a>
+          <a href="/#picks">考古报告开放获取清单</a>
+          <a href="/#picks">民国报刊影印目录</a>
+          <a href="/#picks">金石碑刻拓片索引</a>
+          <a href="/#picks">古籍 OCR 抽样复核</a>
+          <a href="/#picks">家谱族谱查询路径</a>
+          <a href="/#picks">学位论文题录库</a>
+        </div>
+      </section>
+
+      <!-- 11 榜单 -->
+      <section class="block" id="ranking">
+        <div class="block-head">
+          <span class="no">11 / 榜单</span>
+          <h2>本周检索热度榜：按站内搜索次数排序</h2>
+        </div>
+        <ol class="rank">
+          <li>
+            <div><h3>永乐大典存卷影印</h3><p>卷次多、分布散，检索集中在卷 813 之后的残卷。</p></div>
+            <span class="score">1 842 次</span>
+          </li>
+          <li>
+            <div><h3>四库全书总目提要</h3><p>子部谱录类补入后，检索量一周内上升 37%。</p></div>
+            <span class="score">1 507 次</span>
+          </li>
+          <li>
+            <div><h3>江西舆图与府县志合表</h3><p>旧府名检索带动整体访问，南康府占其中六成。</p></div>
+            <span class="score">1 296 次</span>
+          </li>
+          <li>
+            <div><h3>敦煌写卷编号对照表</h3><p>同卷异号 31 组的查询最集中，S. 号为主。</p></div>
+            <span class="score">964 次</span>
+          </li>
+          <li>
+            <div><h3>CBDB 人物关系检索入门</h3><p>条件列表化后复现查询变多，苏轼条目居首。</p></div>
+            <span class="score">831 次</span>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 12 可核对结构 -->
+      <section class="block" id="verify">
+        <div class="block-head">
+          <span class="no">12 / 核对</span>
+          <h2>可信度分层：把一个判断拆成可核对项</h2>
+        </div>
+        <p class="lead-line">以下把“某平台古籍条目可引用”这一判断拆成四层，每层给出核对对象与当前结果。分层只为便于复核，不代表平台整体评价。</p>
+        <div class="verify">
+          <div>
+            <b>第一层 · 底本是否标明</b>
+            <span>1 936 条影印条目中，标明底本与藏馆的 1 802 条，占 93.1%。</span>
+          </div>
+          <div>
+            <b>第二层 · 校勘是否列异文</b>
+            <span>带校勘记的 1 214 条，占 62.7%；其中列出异文出处的 706 条。</span>
+          </div>
+          <div>
+            <b>第三层 · 卷次是否完整</b>
+            <span>抽核 200 条，卷端与目录一致的 187 条，缺卷 13 条，多为残卷。</span>
+          </div>
+          <div>
+            <b>第四层 · 近三个月是否校验</b>
+            <span>11 月 8 日前三个月内校验 1 663 条，占 85.9%；逾期未校验 273 条。</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- sidebar -->
+    <aside class="side" aria-label="辅助导航与说明">
+      <div class="side-card">
+        <h2>本页目录</h2>
+        <ul class="side-nav" id="sideNav">
+          <li><a href="/#overview">领域概览</a></li>
+          <li><a href="/#picks">精选内容推荐</a></li>
+          <li><a href="/#updates">最新更新</a></li>
+          <li><a href="/#channels">分类入口</a></li>
+          <li><a href="/#analysis">深度解析</a></li>
+          <li><a href="/#guide">体验指南</a></li>
+          <li><a href="/#faq">常见问答</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#recommend">相关推荐</a></li>
+          <li><a href="/#ranking">检索热度榜</a></li>
+          <li><a href="/#verify">可信度分层</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <h3>检索小贴士</h3>
+        <p>旧府名优先于今地名；“可引用”标记需同时满足卷端完整、有校勘记、可下载三项。条目页右上角显示最近校验日期。</p>
+      </div>
+      <div class="side-card">
+        <h3>本周校验</h3>
+        <ul class="mini">
+          <li><b>512</b> 条链接校验，通过 484 条</li>
+          <li><b>28</b> 条失效，均标“已迁移”</li>
+          <li><b>12</b> 条条目合并，保留原编号</li>
+          <li><b>37</b> 条引文页码对不上，待复核</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="fname">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="#31513f"/>
+            <circle cx="27" cy="27" r="13" fill="none" stroke="#e9c46a" stroke-width="4"/>
+            <line x1="37" y1="37" x2="50" y2="50" stroke="#e9c46a" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+          集芳阁云搜com
+        </div>
+        <p>把可检索的文本按底本、编号与校验时间重新排一遍，让引文有据可查。</p>
+      </div>
+      <div>
+        <h3>文献类型</h3>
+        <ul class="foot-links">
+          <li><a href="/#channels">古籍影印本</a></li>
+          <li><a href="/#channels">地方志旧府名</a></li>
+          <li><a href="/#channels">敦煌写卷编号</a></li>
+          <li><a href="/#channels">金石碑刻拓片</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>检索工具</h3>
+        <ul class="foot-links">
+          <li><a href="/#guide">四条检索路径</a></li>
+          <li><a href="/#verify">可信度分层</a></li>
+          <li><a href="/#updates">目录更新记录</a></li>
+          <li><a href="/#faq">版本判断问答</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>参与</h3>
+        <ul class="foot-links">
+          <li><a href="/#comments">使用反馈</a></li>
+          <li><a href="/#ranking">本周检索热度</a></li>
+          <li><a href="/#recommend">长尾入口推荐</a></li>
+          <li><a href="/#news">开放获取动态</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>页面内条目、条数、校验比例均为示例数据，引用前请以馆藏目录与底本原书为准。</span>
+      <span class="upd">站内校验更新时间 2026-11-08，对应“最新更新”板块五项记录。</span>
+      <span>© 2026 集芳阁云搜com</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  "use strict";
+
+  /* mobile menu */
+  var menuBtn = document.getElementById("menuBtn");
+  var navMain = document.getElementById("navMain");
+  if(menuBtn && navMain){
+    menuBtn.addEventListener("click", function(){
+      var open = navMain.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    navMain.addEventListener("click", function(e){
+      if(e.target.tagName === "A"){
+        navMain.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded","false");
+      }
+    });
+  }
+
+  /* local search */
+  var input = document.getElementById("siteSearch");
+  var btn = document.getElementById("searchBtn");
+  var fb = document.getElementById("searchFeedback");
+
+  function runSearch(){
+    if(!input || !fb) return;
+    var q = input.value.trim();
+    if(!q){
+      fb.textContent = "输入条目名称，例如“永乐大典”“南康府”“敦煌”。";
+      fb.classList.add("on");
+      return;
+    }
+    var found = [];
+    var nodes = document.querySelectorAll("main h2, main h3, main .pick h3, main .timeline h3, main .rec-tags a, main .channels a, main .rank h3, main dd, main p");
+    nodes.forEach(function(n){
+      var text = (n.textContent || "").trim();
+      if(text && text.indexOf(q) > -1){
+        found.push(text.length > 34 ? text.slice(0,34) + "…" : text);
+      }
+    });
+    if(found.length === 0){
+      fb.textContent = "未找到与“" + q + "”相关的条目。可改用旧府名、卷次或编号再试。";
+    }else{
+      var uniq = found.filter(function(v,i){return found.indexOf(v) === i;}).slice(0,4);
+      fb.textContent = "找到 " + found.length + " 处：" + uniq.join("；");
+    }
+    fb.classList.add("on");
+  }
+
+  if(btn) btn.addEventListener("click", runSearch);
+  if(input){
+    input.addEventListener("keydown", function(e){
+      if(e.key === "Enter"){ e.preventDefault(); runSearch(); }
+    });
+    document.addEventListener("click", function(e){
+      if(fb && !fb.contains(e.target) && e.target !== input && e.target !== btn){
+        fb.classList.remove("on");
+      }
+    });
+  }
+
+  /* back to top */
+  var toTop = document.getElementById("toTop");
+  function onScroll(){
+    if(!toTop) return;
+    if(window.scrollY > 420){ toTop.classList.add("show"); }
+    else{ toTop.classList.remove("show"); }
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+  if(toTop){
+    toTop.addEventListener("click", function(){
+      window.scrollTo({top:0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+    });
+  }
+
+  /* sidebar scroll highlight */
+  var sideLinks = Array.prototype.slice.call(document.querySelectorAll("#sideNav a"));
+  var targets = sideLinks.map(function(a){
+    var id = a.getAttribute("href").replace("/#","");
+    return document.getElementById(id);
+  }).filter(Boolean);
+
+  function highlight(){
+    var pos = window.scrollY + 140;
+    var current = null;
+    targets.forEach(function(el){
+      if(el.offsetTop <= pos) current = el;
+    });
+    sideLinks.forEach(function(a){ a.classList.remove("active"); });
+    if(current){
+      var match = sideLinks.filter(function(a){ return a.getAttribute("href") === "/#" + current.id; })[0];
+      if(match) match.classList.add("active");
+    }
+  }
+  window.addEventListener("scroll", highlight, {passive:true});
+  highlight();
+})();
+</script>
+
+</body>
+                </html>
